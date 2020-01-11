@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import os
 import requests
 import argparse
 
@@ -23,9 +24,7 @@ def parse_arguments():
     args = parser.parse_args()
     return args
 
-if __name__ == "__main__":
-    import os
-    
+if __name__ == "__main__":    
     args = parse_arguments()
     output_path = args.output
     urls = get_public_repo_names(args.username, args.exclude_forks)
