@@ -35,10 +35,13 @@ if __name__ == "__main__":
     try:
         os.mkdir(output_path)
     except:
-        pass
+        print("Failed to create directory.")
+        exit(1)
+        
     if len(urls)>1:
         for url in urls:
             try:
                 os.system("git clone "+url + " "+ output_path+"/"+url.split("/")[-1])
             except:
                 print("Git client error. Check your git installation via 'git --version'")
+                exit(1)
