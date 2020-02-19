@@ -4,12 +4,29 @@ python:
   - "3.7"
   - "3.8"
 
+env:
+  global:
+    - PACKAGE_NAME=fetchrepos
+
+before_install:
+  - export BUILD_VERSION=$(date "+%Y%m%d").$TRAVIS_BUILD_NUMBER
+  - export PACKAGE_NAME_VERSION=$PACKAGE_NAME.$BUILD_VERSION.deb
+
 install:
   - pip install -r requirements.txt
 
 script:
   - pyinstaller fetchrepos.py
-  
-notifications:
-  email:
-    - tahtaciburak@github.com
+  - mkdir dist/$PACKAGE_NAME_VERSION
+  - mkdir dist/$PACKAGE_NAME_VERSION/DEBIAN
+  - bash add_debian_header.sh $BUILD_VERSION dist/$PACKAGE_NAME_VERSION/DEBIAN
+  - mkdir dist/$PACKAGE_NAME_VERSION/usr 
+  - mkdir dist/$PACKAGE_NAME_VERSION/usr/lib
+  - mkdir dist/$PACKAGE_NAME_VERSION/usr/local
+  - mkdir dist/$PACKAGE_NAME_VERSION/usr/local/bin 
+  - mv dist/fetchrepos dist/$PACKAGE_NAME_VERSION/usr/lib
+  - ln -s dist/$PACKAGE_NAME_VERSION/usr/local/bin/fetchrepos dist/$PACKAGE_NAME_VERSION/usr/lib/fetchrepos
+
+  notifications:
+    email:
+      - tahtaciburak@gmail.com
