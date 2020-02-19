@@ -1,5 +1,5 @@
 # fetchrepos
-
+[![Build Status](https://travis-ci.org/tahtaciburak/fetchrepos.svg?branch=master)](https://travis-ci.org/tahtaciburak/fetchrepos)
 This project aims to download all the repositories of an Github user. It's very useful for organizing all your projects in one directory. You can download all the public repositories of a user by running following command.
 ```bash
 fetchrepos --username <YOUR_GITHUB_USERNAME> --output-path <OUTPUT_PATH>
