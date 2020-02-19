@@ -36,10 +36,7 @@ def start_download(url, output_path):
         print("Git client error. Check your git installation via 'git --version'")
         exit(1)
 
-if __name__ == "__main__":    
-    args = parse_arguments()
-    output_path = args.output
-    urls = get_public_repo_names(args.username, args.exclude_forks)
+def create_output_path(output_path):
     try:
         if not os.path.isdir(output_path):
             os.mkdir(output_path)
@@ -47,6 +44,11 @@ if __name__ == "__main__":
         print("Failed to create directory.")
         exit(1)
 
+if __name__ == "__main__":    
+    args = parse_arguments()
+    output_path = args.output
+    urls = get_public_repo_names(args.username, args.exclude_forks)
+    create_output_path(output_path)
     t_pool = ThreadPool(4)
     results = t_pool.starmap(start_download, zip(urls,repeat(output_path)))
 
