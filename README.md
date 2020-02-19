@@ -14,7 +14,7 @@ sudo cp fetchrepos /usr/local/bin
 ```
 
 ## Usage
-```
+```bash
 usage: fetchrepos.py [-h] -u USERNAME -o OUTPUT [-e]
 
 fetchrepos: A tool for downloading all public repositories of a user.
@@ -31,9 +31,12 @@ optional arguments:
 
 ## Examples
 
-```
+```bash
+# This will download all public projects of user tahtaciburak
 fetchrepos --username tahtaciburak --output my_projects
-fetchrepos --username tahtaciburak --output my_projects --exclude-forks # This will not download repos that are forked by user.
+
+ # This will.
+fetchrepos --username tahtaciburak --output my_projects --exclude-forks
 ```
 ## Contributing
 If you have some ideas about fetchrepos please feel free to open PR or issue.
