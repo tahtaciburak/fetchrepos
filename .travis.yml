@@ -27,6 +27,6 @@ script:
   - mv dist/fetchrepos dist/$PACKAGE_NAME_VERSION/usr/lib
   - ln -s dist/$PACKAGE_NAME_VERSION/usr/local/bin/fetchrepos dist/$PACKAGE_NAME_VERSION/usr/lib/fetchrepos
 
-  notifications:
-    email:
-      - tahtaciburak@gmail.com
+notifications:
+  email:
+    - tahtaciburak@gmail.com
