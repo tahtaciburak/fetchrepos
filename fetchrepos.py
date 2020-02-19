@@ -2,7 +2,8 @@
 import os
 import requests
 import argparse
-
+from multiprocessing.pool import ThreadPool
+from itertools import repeat
 
 def get_public_repo_names(username,exclude_forks):
     try:
@@ -28,20 +29,26 @@ def parse_arguments():
     args = parser.parse_args()
     return args
 
+def start_download(url, output_path):
+    try:
+        os.system("git clone "+url + " "+ output_path+"/"+url.split("/")[-1])
+    except:
+        print("Git client error. Check your git installation via 'git --version'")
+        exit(1)
+
 if __name__ == "__main__":    
     args = parse_arguments()
     output_path = args.output
     urls = get_public_repo_names(args.username, args.exclude_forks)
     try:
-        os.mkdir(output_path)
+        if not os.path.isdir(output_path):
+            os.mkdir(output_path)
     except:
         print("Failed to create directory.")
         exit(1)
-        
-    if len(urls)>1:
-        for url in urls:
-            try:
-                os.system("git clone "+url + " "+ output_path+"/"+url.split("/")[-1])
-            except:
-                print("Git client error. Check your git installation via 'git --version'")
-                exit(1)
+
+    t_pool = ThreadPool(4)
+    results = t_pool.starmap(start_download, zip(urls,repeat(output_path)))
+
+    t_pool.close()
+    t_pool.join()
