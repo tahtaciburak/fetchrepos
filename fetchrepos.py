@@ -22,7 +22,7 @@ def get_public_repo_names(username,exclude_forks):
     return urls
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="fetchrepos: A tool for downloading all public repositories of a user.")
+    parser = argparse.ArgumentParser(description="fetchrepos: A tool for downloading all public repositories of given user.")
     parser.add_argument("-u", "--username", required=True,help="Username for fetching repos.")
     parser.add_argument("-o", "--output", required=True,help="Destination path for your download.")
     parser.add_argument("-e", "--exclude-forks", action="store_true", help="Ignore forks, download repositories that created by user")
