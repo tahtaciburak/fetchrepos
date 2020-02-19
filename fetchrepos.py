@@ -5,7 +5,11 @@ import argparse
 
 
 def get_public_repo_names(username,exclude_forks):
-    response = requests.get("https://api.github.com/users/"+username+"/repos")
+    try:
+        response = requests.get("https://api.github.com/users/"+username+"/repos")
+    except requests.exceptions.ConnectionError:
+        print("Failed to connect GitHub check your internet connection.")
+        exit(-1)
     repos = response.json()
     urls = []
     for repo in repos:
@@ -34,4 +38,7 @@ if __name__ == "__main__":
         pass
     if len(urls)>1:
         for url in urls:
-            os.system("git clone "+url + " "+ output_path+"/"+url.split("/")[-1])
+            try:
+                os.system("git clone "+url + " "+ output_path+"/"+url.split("/")[-1])
+            except:
+                print("Git client error. Check your git installation via 'git --version'")
